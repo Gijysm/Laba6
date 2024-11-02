@@ -2,27 +2,21 @@ package com.example.laba6;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private List<Printers> printers = new ArrayList<>();
+    private List<Vickend> printers = new ArrayList<>();
     private ListView printerList;
-    private ArrayList<Printers> deletedItems = new ArrayList<>();
+    private ArrayList<Vickend> deletedItems = new ArrayList<>();
     private StateAdapter stateAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         AdapterView.OnItemClickListener itemClickListener = new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Printers selectedPrinter = (Printers) parent.getItemAtPosition(position);
+                Vickend selectedPrinter = (Vickend) parent.getItemAtPosition(position);
                 Toast.makeText(getApplicationContext(), "Selected printer " + selectedPrinter.GetName(), Toast.LENGTH_SHORT).show();
             }
         };
@@ -54,10 +48,10 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
     }
     private void setInitialData(){
-        printers.add(new Printers("HP LaserJet Pro", "M404dn", "HP", R.drawable.c08331728));
-        printers.add(new Printers("PIXMA", "TS8320", "Canon", R.drawable.images));
-        printers.add(new Printers("Epson EcoTank ET-4760", "ET-4760", "Epson", R.drawable.print));
-        printers.add(new Printers("Brother HL-L2350DW", "HL-L2350DW", "Brother", R.drawable.brother));
+        printers.add(new Vickend("Тур до Говерли", "Тур", "Говерла", R.drawable.hoverla));
+        printers.add(new Vickend("Поход до озера Синевир", "Поход", "озеро Синевир", R.drawable.licensedimage));
+        printers.add(new Vickend("Екскурсія до Яремче", "Екскурсія", "Яремче", R.drawable.pxl));
+        printers.add(new Vickend("Відвідування Карпатського національного парку", "Відвідування", "Карпатського національного парку", R.drawable.park));
 //        "Samsung Xpress M2020W"
 //        "Ricoh SP 3710DN"
 //        "Kyocera ECOSYS P5026cdw"
