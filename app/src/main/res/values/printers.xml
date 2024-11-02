@@ -21,4 +21,5 @@
         <item>     "Kyocera TASKalfa 2552ci"</item>
         <item>        "Xerox VersaLink C400"</item>
     </string-array>
+    <item name="recyclerView" type="id" />
 </resources>

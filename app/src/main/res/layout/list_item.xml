@@ -1,66 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:padding="16dp">
-
     <ImageView
         android:id="@+id/Img"
         android:layout_width="70dp"
         android:layout_height="50dp"
         android:layout_marginRight="16dp"
         android:layout_marginEnd="16dp"/>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/name"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="181dp"
             android:layout_height="wrap_content"
-            android:text="Name"/>
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/model"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Model"/>
-        <TextView
-            android:id="@+id/company"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Company"/>
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name" />
 
-        <Space
+            <TextView
+                android:id="@+id/model"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Model" />
+
+            <TextView
+                android:id="@+id/company"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Company" />
+
+            <!--        <Button-->
+            <!--            android:id="@+id/addButton"-->
+            <!--            android:layout_width="0dp"-->
+            <!--            android:layout_height="wrap_content"-->
+            <!--            android:layout_weight="1"-->
+            <!--            android:text="+" />-->
+
+            <!--        <Button-->
+            <!--            android:id="@+id/removeButton"-->
+            <!--            android:layout_width="0dp"-->
+            <!--            android:layout_height="wrap_content"-->
+            <!--            android:layout_weight="1"-->
+            <!--            android:text="-" />-->
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/countView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Count" />
+        </LinearLayout>
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <!--        <Button-->
-<!--            android:id="@+id/addButton"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_weight="1"-->
-<!--            android:text="+" />-->
-
-<!--        <Button-->
-<!--            android:id="@+id/removeButton"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_weight="1"-->
-<!--            android:text="-" />-->
-        <TextView
-            android:id="@+id/countView"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Count" />
-
+            android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <Button
                 android:id="@+id/addButton"
                 android:layout_width="0dp"
@@ -71,9 +81,20 @@
             <Button
                 android:id="@+id/removeButton"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="-" />
+        </LinearLayout>
+
+            <Button
+                android:id="@+id/deleteButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Delete"
+                android:textColor="#00FFFFFF"
+                android:textColorLink="#00FFFFFF"
+                app:icon="@android:drawable/ic_menu_delete" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

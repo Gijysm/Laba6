@@ -1,6 +1,8 @@
 package com.example.laba6;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,14 +11,19 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class StateAdapter extends ArrayAdapter<Printers> {
     private LayoutInflater inflater;
     private int layout;
     private List<Printers> states;
+    private ArrayList<Printers> deletedItems = new ArrayList<>();
 
-
+    public ArrayList<Printers> GetDeleted()
+    {
+        return deletedItems;
+    }
     public StateAdapter(Context context, int resource, List<Printers> states) {
         super(context, resource, states);
         this.states = states;
@@ -54,6 +61,22 @@ public class StateAdapter extends ArrayAdapter<Printers> {
                 viewHolder.countView.setText(formatValue(count, "units"));
             }
         });
+        viewHolder.deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                state.SetDeleted();
+                boolean delet = state.GetDeleted();
+                if (delet) {
+                    deletedItems.add(state);
+                    states.remove(state);
+                    notifyDataSetChanged();
+
+//                    Intent intent = new Intent(v.getContext(), Trash.class);
+//                    intent.putParcelableArrayListExtra("deletedItems", deletedItems);
+
+                }
+            }
+        });
 
         viewHolder.addButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,7 +97,8 @@ public class StateAdapter extends ArrayAdapter<Printers> {
     private static class ViewHolder {
         final ImageView imageView;
         final TextView nameView, companyView, modelView, countView;
-        final Button addButton, removeButton;
+        final Button addButton, removeButton, deleteButton;
+
 
         ViewHolder(View view) {
             imageView = view.findViewById(R.id.Img);
@@ -83,6 +107,7 @@ public class StateAdapter extends ArrayAdapter<Printers> {
             modelView = view.findViewById(R.id.model);
             countView = view.findViewById(R.id.countView);
             addButton = view.findViewById(R.id.addButton);
+            deleteButton = view.findViewById(R.id.deleteButton);
             removeButton = view.findViewById(R.id.removeButton);
         }
     }

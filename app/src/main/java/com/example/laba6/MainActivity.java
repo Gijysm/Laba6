@@ -1,6 +1,9 @@
 package com.example.laba6;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -19,16 +22,18 @@ public class MainActivity extends AppCompatActivity {
 
     private List<Printers> printers = new ArrayList<>();
     private ListView printerList;
+    private ArrayList<Printers> deletedItems = new ArrayList<>();
+    private StateAdapter stateAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main); // Розкоментуйте цей рядок
+        setContentView(R.layout.activity_main);
 
         setInitialData();
 
         printerList = (ListView) findViewById(R.id.Printerslist);
 
-        StateAdapter stateAdapter = new StateAdapter(this, R.layout.list_item, printers);
+        stateAdapter = new StateAdapter(this, R.layout.list_item, printers);
 
         printerList.setAdapter(stateAdapter);
 
@@ -40,6 +45,13 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         printerList.setOnItemClickListener(itemClickListener);
+    }
+    public void OnClick(View view)
+    {
+        deletedItems = stateAdapter.GetDeleted();
+            Intent intent = new Intent(MainActivity.this, Trash.class);
+            intent.putParcelableArrayListExtra("deletedItems", deletedItems);
+            startActivity(intent);
     }
     private void setInitialData(){
         printers.add(new Printers("HP LaserJet Pro", "M404dn", "HP", R.drawable.c08331728));
