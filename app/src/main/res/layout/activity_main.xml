@@ -11,7 +11,7 @@
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="OnClick"
+        android:onClick="onClick"
         android:text="trash"
         android:textColor="#00FFFFFF"
         app:icon="@android:drawable/ic_menu_delete"
