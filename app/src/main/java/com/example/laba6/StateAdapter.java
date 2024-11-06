@@ -12,19 +12,19 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StateAdapter extends ArrayAdapter<Vickend> {
+public class StateAdapter extends ArrayAdapter<Camera> {
     private LayoutInflater inflater;
     private int layout;
-    private List<Vickend> states;
-    private ArrayList<Vickend> deletedItems = new ArrayList<>();
+    private List<Camera> cameras;
+    private ArrayList<Camera> deletedItems = new ArrayList<>();
 
-    public ArrayList<Vickend> GetDeleted()
-    {
+    public ArrayList<Camera> getDeletedItems() {
         return deletedItems;
     }
-    public StateAdapter(Context context, int resource, List<Vickend> states) {
-        super(context, resource, states);
-        this.states = states;
+
+    public StateAdapter(Context context, int resource, List<Camera> cameras) {
+        super(context, resource, cameras);
+        this.cameras = cameras;
         this.layout = resource;
         this.inflater = LayoutInflater.from(context);
     }
@@ -43,46 +43,33 @@ public class StateAdapter extends ArrayAdapter<Vickend> {
             viewHolder = (ViewHolder) view.getTag();
         }
 
-        Vickend state = states.get(position);
+        Camera camera = cameras.get(position);
 
-        viewHolder.imageView.setImageResource(state.GetImageResourse());
-        viewHolder.nameView.setText(state.GetName());
-        viewHolder.modelView.setText(state.GetModel());
-        viewHolder.companyView.setText(state.GetCompany());
+        viewHolder.imageView.setImageResource(camera.getImageResource());
+        viewHolder.nameView.setText(camera.getModel());
+        viewHolder.modelView.setText(camera.getType());
+        viewHolder.companyView.setText(camera.getCompany());
 
-        viewHolder.removeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int count = state.Getcount() - 1;
-                if (count < 0) count = 0;
-                state.SetCount(count);
-                viewHolder.countView.setText(formatValue(count, "units"));
-            }
+        viewHolder.removeButton.setOnClickListener(v -> {
+            int count = camera.getCount() - 1;
+            if (count < 0) count = 0;
+            camera.setCount(count);
+            viewHolder.countView.setText(formatValue(count, "units"));
         });
-        viewHolder.deleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                state.SetDeleted();
-                boolean delet = state.GetDeleted();
-                if (delet) {
-                    deletedItems.add(state);
-                    states.remove(state);
-                    notifyDataSetChanged();
 
-//                    Intent intent = new Intent(v.getContext(), Trash.class);
-//                    intent.putParcelableArrayListExtra("deletedItems", deletedItems);
-
-                }
+        viewHolder.deleteButton.setOnClickListener(v -> {
+            camera.toggleDeleted();
+            if (camera.isDeleted()) {
+                deletedItems.add(camera);
+                cameras.remove(camera);
+                notifyDataSetChanged();
             }
         });
 
-        viewHolder.addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int count = state.Getcount() + 1;
-                state.SetCount(count);
-                viewHolder.countView.setText(formatValue(count, "units"));
-            }
+        viewHolder.addButton.setOnClickListener(v -> {
+            int count = camera.getCount() + 1;
+            camera.setCount(count);
+            viewHolder.countView.setText(formatValue(count, "units"));
         });
 
         return view;
@@ -96,7 +83,6 @@ public class StateAdapter extends ArrayAdapter<Vickend> {
         final ImageView imageView;
         final TextView nameView, companyView, modelView, countView;
         final Button addButton, removeButton, deleteButton;
-
 
         ViewHolder(View view) {
             imageView = view.findViewById(R.id.Img);

@@ -14,10 +14,11 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private List<Vickend> printers = new ArrayList<>();
-    private ListView printerList;
-    private ArrayList<Vickend> deletedItems = new ArrayList<>();
-    private StateAdapter stateAdapter;
+    private List<Camera> cameras = new ArrayList<>();
+    private ListView cameraList;
+    private ArrayList<Camera> deletedItems = new ArrayList<>();
+    private StateAdapter cameraAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,48 +26,34 @@ public class MainActivity extends AppCompatActivity {
 
         setInitialData();
 
-        printerList = (ListView) findViewById(R.id.Printerslist);
+        cameraList = findViewById(R.id.Printerslist);
 
-        stateAdapter = new StateAdapter(this, R.layout.list_item, printers);
+        cameraAdapter = new StateAdapter(this, R.layout.list_item, cameras);
 
-        printerList.setAdapter(stateAdapter);
+        cameraList.setAdapter(cameraAdapter);
 
         AdapterView.OnItemClickListener itemClickListener = new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Vickend selectedPrinter = (Vickend) parent.getItemAtPosition(position);
-                Toast.makeText(getApplicationContext(), "Selected printer " + selectedPrinter.GetName(), Toast.LENGTH_SHORT).show();
+                Camera selectedCamera = (Camera) parent.getItemAtPosition(position);
+                Toast.makeText(getApplicationContext(), "Selected camera " + selectedCamera.getModel(), Toast.LENGTH_SHORT).show();
             }
         };
-        printerList.setOnItemClickListener(itemClickListener);
+        cameraList.setOnItemClickListener(itemClickListener);
     }
-    public void OnClick(View view)
-    {
-        deletedItems = stateAdapter.GetDeleted();
-            Intent intent = new Intent(MainActivity.this, Trash.class);
-            intent.putParcelableArrayListExtra("deletedItems", deletedItems);
-            startActivity(intent);
+
+    public void onClick(View view) {
+        deletedItems = cameraAdapter.getDeletedItems();
+        Intent intent = new Intent(MainActivity.this, Trash.class);
+        intent.putParcelableArrayListExtra("deletedItems", deletedItems);
+        startActivity(intent);
     }
-    private void setInitialData(){
-        printers.add(new Vickend("Відвідування старого міста Кракова", "Екскурсія", "Краків", R.drawable.krakow));
-        printers.add(new Vickend("Тур до Варшави", "Міський тур", "Варшава", R.drawable.warsaw));
-        printers.add(new Vickend("Поход до гір Татри", "Поход", "Татри", R.drawable.tatras));
-        printers.add(new Vickend("Екскурсія до Вавельського замку", "Екскурсія", "Вавель", R.drawable.wawel_castle));
-        printers.add(new Vickend("Відпочинок на Балтійському узбережжі", "Курорт", "Балтійське море", R.drawable.baltic_sea));
-//        "Samsung Xpress M2020W"
-//        "Ricoh SP 3710DN"
-//        "Kyocera ECOSYS P5026cdw"
-//        "Xerox Phaser 6510"
-//        "Lexmark B2236dw"
-//        "Dell E310dw"
-//        "OKI B432dn"
-//        "HP OfficeJet Pro 9015"
-//        "Canon imageCLASS MF644Cdw"
-//        "Epson Workforce WF-2830"
-//        "Brother MFC-J995DW"
-//        "Samsung ProXpress SL-M3820DW"
-//        "Ricoh SP C261SFNw"
-//        "Kyocera TASKalfa 2552ci"
-//        "Xerox VersaLink C400"
+
+    private void setInitialData() {
+        cameras.add(new Camera("Canon EOS R5", "Камера", "Canon", R.drawable.canon));
+        cameras.add(new Camera("Nikon Z7 II", "Камера", "Nikon", R.drawable.nikon));
+        cameras.add(new Camera("Sony A7 IV", "Камера", "Sony", R.drawable.sony));
+        cameras.add(new Camera("Canon EOS-1D X Mark III", "Камера", "Canon", R.drawable.canon1));
+        cameras.add(new Camera("Canon EOS Rebel T8i", "Камера", "Canon", R.drawable.canon2));
     }
 }

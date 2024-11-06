@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class Trash extends AppCompatActivity {
     private ListView deletedItemsListView;
     private StateAdapter adapter;
-    private ArrayList<Vickend> deletedItems;
+    private ArrayList<Camera> deletedItems;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
