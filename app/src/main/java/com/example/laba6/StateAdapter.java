@@ -1,8 +1,6 @@
 package com.example.laba6;
 
 import android.content.Context;
-import android.content.Intent;
-import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,17 +12,17 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StateAdapter extends ArrayAdapter<Printers> {
+public class StateAdapter extends ArrayAdapter<Vickend> {
     private LayoutInflater inflater;
     private int layout;
-    private List<Printers> states;
-    private ArrayList<Printers> deletedItems = new ArrayList<>();
+    private List<Vickend> states;
+    private ArrayList<Vickend> deletedItems = new ArrayList<>();
 
-    public ArrayList<Printers> GetDeleted()
+    public ArrayList<Vickend> GetDeleted()
     {
         return deletedItems;
     }
-    public StateAdapter(Context context, int resource, List<Printers> states) {
+    public StateAdapter(Context context, int resource, List<Vickend> states) {
         super(context, resource, states);
         this.states = states;
         this.layout = resource;
@@ -45,7 +43,7 @@ public class StateAdapter extends ArrayAdapter<Printers> {
             viewHolder = (ViewHolder) view.getTag();
         }
 
-        Printers state = states.get(position);
+        Vickend state = states.get(position);
 
         viewHolder.imageView.setImageResource(state.GetImageResourse());
         viewHolder.nameView.setText(state.GetName());
