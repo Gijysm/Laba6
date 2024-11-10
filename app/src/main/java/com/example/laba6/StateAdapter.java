@@ -1,8 +1,6 @@
 package com.example.laba6;
 
 import android.content.Context;
-import android.content.Intent;
-import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,19 +12,19 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StateAdapter extends ArrayAdapter<Printers> {
+public class StateAdapter extends ArrayAdapter<Vickend> {  // Use a common superclass or interface
     private LayoutInflater inflater;
     private int layout;
-    private List<Printers> states;
-    private ArrayList<Printers> deletedItems = new ArrayList<>();
+    private List<Vickend> items;  // Can be a List<Item>, assuming both Vickend and Printers implement Item
+    private ArrayList<Vickend> deletedItems = new ArrayList<>();
 
-    public ArrayList<Printers> GetDeleted()
-    {
+    public ArrayList<Vickend> GetDeleted() {
         return deletedItems;
     }
-    public StateAdapter(Context context, int resource, List<Printers> states) {
-        super(context, resource, states);
-        this.states = states;
+
+    public StateAdapter(Context context, int resource, List<Vickend> items) {
+        super(context, resource, items);
+        this.items = items;
         this.layout = resource;
         this.inflater = LayoutInflater.from(context);
     }
@@ -45,46 +43,43 @@ public class StateAdapter extends ArrayAdapter<Printers> {
             viewHolder = (ViewHolder) view.getTag();
         }
 
-        Printers state = states.get(position);
+        Vickend item = items.get(position);
 
-        viewHolder.imageView.setImageResource(state.GetImageResourse());
-        viewHolder.nameView.setText(state.GetName());
-        viewHolder.modelView.setText(state.GetModel());
-        viewHolder.companyView.setText(state.GetCompany());
+        viewHolder.imageView.setImageResource(item.GetImageResourse());
+        viewHolder.nameView.setText(item.GetName());
+        viewHolder.modelView.setText(item.GetModel());
+        viewHolder.companyView.setText(item.GetCompany());
+        viewHolder.countView.setText(formatValue(item.Getcount(), "units"));
 
-        viewHolder.removeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int count = state.Getcount() - 1;
-                if (count < 0) count = 0;
-                state.SetCount(count);
-                viewHolder.countView.setText(formatValue(count, "units"));
-            }
-        });
-        viewHolder.deleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                state.SetDeleted();
-                boolean delet = state.GetDeleted();
-                if (delet) {
-                    deletedItems.add(state);
-                    states.remove(state);
-                    notifyDataSetChanged();
 
-//                    Intent intent = new Intent(v.getContext(), Trash.class);
-//                    intent.putParcelableArrayListExtra("deletedItems", deletedItems);
+        if (item instanceof Vickend) {
+            Vickend printer = (Vickend) item;
+            viewHolder.moneyView.setText(formatValue(printer.GetMoney(), "$"));
+        } else {
+            viewHolder.moneyView.setVisibility(View.GONE);  // Hide moneyView for Vickend
+        }
 
-                }
-            }
+        viewHolder.removeButton.setOnClickListener(v -> {
+            int count = item.Getcount() - 1;
+            if (count < 0) count = 0;
+            item.SetCount(count);
+            viewHolder.countView.setText(formatValue(count, "units"));
         });
 
-        viewHolder.addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int count = state.Getcount() + 1;
-                state.SetCount(count);
-                viewHolder.countView.setText(formatValue(count, "units"));
+        viewHolder.deleteButton.setOnClickListener(v -> {
+            item.SetDeleted();
+            boolean deleted = item.GetDeleted();
+            if (deleted) {
+                deletedItems.add(item);
+                items.remove(position);
+                notifyDataSetChanged();
             }
+        });
+
+        viewHolder.addButton.setOnClickListener(v -> {
+            int count = item.Getcount() + 1;
+            item.SetCount(count);
+            viewHolder.countView.setText(formatValue(count, "units"));
         });
 
         return view;
@@ -96,9 +91,8 @@ public class StateAdapter extends ArrayAdapter<Printers> {
 
     private static class ViewHolder {
         final ImageView imageView;
-        final TextView nameView, companyView, modelView, countView;
+        final TextView nameView, companyView, modelView, countView, moneyView;
         final Button addButton, removeButton, deleteButton;
-
 
         ViewHolder(View view) {
             imageView = view.findViewById(R.id.Img);
@@ -106,6 +100,7 @@ public class StateAdapter extends ArrayAdapter<Printers> {
             companyView = view.findViewById(R.id.company);
             modelView = view.findViewById(R.id.model);
             countView = view.findViewById(R.id.countView);
+            moneyView = view.findViewById(R.id.moneyView);  // Optional for Printers only
             addButton = view.findViewById(R.id.addButton);
             deleteButton = view.findViewById(R.id.deleteButton);
             removeButton = view.findViewById(R.id.removeButton);

@@ -61,6 +61,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Count" />
+            <TextView
+                android:id="@+id/moneyView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Money" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
