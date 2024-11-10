@@ -51,7 +51,7 @@ public class StateAdapter extends ArrayAdapter<Vickend> {  // Use a common super
         viewHolder.companyView.setText(item.GetCompany());
         viewHolder.countView.setText(formatValue(item.Getcount(), "units"));
 
-        // Check if it's a Printer and update moneyView
+
         if (item instanceof Vickend) {
             Vickend printer = (Vickend) item;
             viewHolder.moneyView.setText(formatValue(printer.GetMoney(), "$"));
