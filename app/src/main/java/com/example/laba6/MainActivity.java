@@ -48,10 +48,10 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
     }
     private void setInitialData(){
-        printers.add(new Vickend("Тур до Говерли", "Тур", "Говерла", R.drawable.hoverla));
-        printers.add(new Vickend("Поход до озера Синевир", "Поход", "озеро Синевир", R.drawable.licensedimage));
-        printers.add(new Vickend("Екскурсія до Яремче", "Екскурсія", "Яремче", R.drawable.pxl));
-        printers.add(new Vickend("Відвідування Карпатського національного парку", "Відвідування", "Карпатського національного парку", R.drawable.park));
+        printers.add(new Vickend("Тур до Говерли", "Тур", "Говерла", R.drawable.hoverla, 200));
+        printers.add(new Vickend("Поход до озера Синевир", "Поход", "озеро Синевир", R.drawable.licensedimage, 300));
+        printers.add(new Vickend("Екскурсія до Яремче", "Екскурсія", "Яремче", R.drawable.pxl, 720));
+        printers.add(new Vickend("Відвідування Карпатського національного парку", "Відвідування", "Карпатського національного парку", R.drawable.park, 490));
 //        "Samsung Xpress M2020W"
 //        "Ricoh SP 3710DN"
 //        "Kyocera ECOSYS P5026cdw"
